@@ -19,9 +19,27 @@ export default function Home() {
   const completedTodos = todos.filter((todo) => todo.completed);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900">
-      <div className="container mx-auto p-4 max-w-md bg-white rounded-lg shadow">
-        <h1 className="text-4xl font-bold mb-4">Todo 앱</h1>
+    <div className="min-h-screen flex flex-col gap-2 items-center justify-center bg-gray-50 text-gray-900">
+      <nav className="container mx-auto p-4 max-w-md bg-white rounded-lg shadow-md">
+        <div className="flex items-center justify-between">
+          <div className="text-2xl font-bold">Todo App</div>
+          <div className="space-x-4 flex flex-row">
+            <button
+              onClick={() => (window.location.href = "/")}
+              className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
+            >
+              홈
+            </button>
+            <button
+              onClick={() => (window.location.href = "/dashboard")}
+              className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
+            >
+              대시보드
+            </button>
+          </div>
+        </div>
+      </nav>
+      <div className="container mx-auto p-4 max-w-md bg-white rounded-lg shadow-md">
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-2">할 일 목록</h2>
           <ul className="space-y-2">
