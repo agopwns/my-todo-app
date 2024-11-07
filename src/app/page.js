@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import TodoSection from "@/components/TodoSection";
 import FloatingButton from "@/components/FloatingButton";
 import TodoModal from "@/components/TodoModal";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Home() {
   // todos 상태와 이를 업데이트하는 setTodos 함수를 생성
@@ -29,7 +30,7 @@ export default function Home() {
     );
   };
 
-  const handleAddTodo = (e) => {
+  const handleAddTodo = async (e) => {
     e.preventDefault();
     if (newTodoText.trim()) {
       const newTodo = {
@@ -37,6 +38,15 @@ export default function Home() {
         text: newTodoText,
         completed: false,
       };
+
+      // Supabase를 사용하여 todos 테이블에 데이터 삽입
+      const { data, error } = await supabase.from("todos").insert([newTodo]);
+
+      if (error) {
+        console.error("Error inserting data:", error);
+        return;
+      }
+
       setTodos([...todos, newTodo]);
       setNewTodoText("");
       setIsModalOpen(false);
