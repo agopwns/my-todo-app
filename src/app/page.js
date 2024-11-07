@@ -87,6 +87,25 @@ export default function Home() {
     }
   };
 
+  const handleDeleteTodo = async (id) => {
+    try {
+      const { error } = await supabase
+        .from("todos")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.user.id);
+
+      if (error) {
+        console.error("Todo 삭제 중 오류 발생:", error);
+        return;
+      }
+
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error("Todo 삭제 중 예외 발생:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col gap-2 items-center justify-center bg-gray-50 text-gray-900">
       <div className="container mx-auto p-4 max-w-md flex flex-col gap-2 items-end">
@@ -94,6 +113,7 @@ export default function Home() {
         <TodoSection
           todos={todos}
           handleToggleComplete={handleToggleComplete}
+          handleDeleteTodo={handleDeleteTodo}
         />
         <FloatingButton onClick={() => setIsModalOpen(true)} />
       </div>
