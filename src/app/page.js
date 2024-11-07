@@ -37,12 +37,29 @@ export default function Home() {
     fetchTodos();
   }, []);
 
-  const handleToggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  const handleToggleComplete = async (id) => {
+    try {
+      const todoToUpdate = todos.find((todo) => todo.id === id);
+
+      const { data, error } = await supabase
+        .from("todos")
+        .update({ completed: !todoToUpdate.completed })
+        .eq("id", id)
+        .select();
+
+      if (error) {
+        console.error("Todo 업데이트 중 오류 발생:", error);
+        return;
+      }
+
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        )
+      );
+    } catch (error) {
+      console.error("Todo 업데이트 중 예외 발생:", error);
+    }
   };
 
   const handleAddTodo = async (e) => {
