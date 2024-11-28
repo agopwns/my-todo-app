@@ -33,7 +33,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="container mx-auto p-4 bg-white rounded-lg shadow-md">
+    <nav className="container mx-auto p-4 bg-white rounded-lg shadow-md text-black">
       <div className="flex items-center justify-between">
         <div className="text-2xl font-bold">
           <button
