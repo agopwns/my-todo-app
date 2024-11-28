@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient"; // supabase 클라이언트 import
+import Link from "next/link"; // Link 컴포넌트 import 추가
 
 export default function Navbar() {
   const [session, setSession] = useState(null);
@@ -36,37 +37,37 @@ export default function Navbar() {
     <nav className="container mx-auto p-4 bg-white rounded-lg shadow-md text-black">
       <div className="flex items-center justify-between">
         <div className="text-2xl font-bold">
-          <button
-            onClick={() => (window.location.href = "/")}
+          <Link
+            href="/"
             className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
           >
             Todo App
-          </button>
+          </Link>
         </div>
         <div className="flex flex-row text-sm">
           {!session ? (
             <>
-              <button
-                onClick={() => (window.location.href = "/signup")}
+              <Link
+                href="/signup"
                 className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
               >
                 회원가입
-              </button>
-              <button
-                onClick={() => (window.location.href = "/signin")}
+              </Link>
+              <Link
+                href="/signin"
                 className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
               >
                 로그인
-              </button>
+              </Link>
             </>
           ) : (
             <>
-              <button
-                onClick={() => (window.location.href = "/dashboard")}
+              <Link
+                href="/dashboard"
                 className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
               >
                 대시보드
-              </button>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
