@@ -12,6 +12,7 @@ export default function DashboardPage() {
     completed: 0,
     pending: 0,
   });
+  const [monthlyStats, setMonthlyStats] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -25,6 +26,7 @@ export default function DashboardPage() {
       }
       setUser(user);
       fetchStats(user.id);
+      fetchMonthlyStats(user.id);
     };
 
     getUser();
@@ -49,6 +51,22 @@ export default function DashboardPage() {
       console.error("통계를 가져오는 중 오류 발생:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMonthlyStats = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from("monthly_todo_stats")
+        .select("*")
+        .eq("user_id", userId)
+        .order("month", { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+      setMonthlyStats(data);
+    } catch (error) {
+      console.error("월별 통계를 가져오는 중 오류 발생:", error);
     }
   };
 
@@ -79,6 +97,41 @@ export default function DashboardPage() {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-2">진행중인 할 일</h2>
           <p className="text-3xl font-bold text-yellow-600">{stats.pending}</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">월별 통계</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-2">월</th>
+                <th className="text-right py-2">전체</th>
+                <th className="text-right py-2">완료</th>
+                <th className="text-right py-2">진행중</th>
+              </tr>
+            </thead>
+            <tbody>
+              {monthlyStats.map((stat) => (
+                <tr key={stat.month} className="border-b">
+                  <td className="py-2">
+                    {new Date(stat.month).toLocaleDateString("ko-KR", {
+                      year: "numeric",
+                      month: "long",
+                    })}
+                  </td>
+                  <td className="text-right py-2">{stat.total_todos}</td>
+                  <td className="text-right py-2 text-green-600">
+                    {stat.completed_todos}
+                  </td>
+                  <td className="text-right py-2 text-yellow-600">
+                    {stat.pending_todos}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
