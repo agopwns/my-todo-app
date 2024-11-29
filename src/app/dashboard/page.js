@@ -2,6 +2,11 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import Calendar from "@/components/Calendar";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -70,6 +75,26 @@ export default function DashboardPage() {
     }
   };
 
+  const pieChartData = {
+    labels: ["완료된 할 일", "진행중인 할 일"],
+    datasets: [
+      {
+        data: [stats.completed, stats.pending],
+        backgroundColor: ["#16a34a", "#ca8a04"],
+        borderColor: ["#15803d", "#a16207"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const pieOptions = {
+    plugins: {
+      legend: {
+        position: "bottom",
+      },
+    },
+  };
+
   if (loading) {
     return <div className="text-center">로딩 중...</div>;
   }
@@ -81,6 +106,15 @@ export default function DashboardPage() {
       <div className="bg-white p-6 rounded-lg shadow flex flex-row items-center gap-4">
         <h2 className="text-xl font-semibold">사용자 정보</h2>
         <p className="text-gray-600">이메일: {user?.email}</p>
+      </div>
+
+      <Calendar userId={user?.id} />
+
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">할 일 현황</h2>
+        <div className="w-full max-w-[300px] mx-auto">
+          <Pie data={pieChartData} options={pieOptions} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
