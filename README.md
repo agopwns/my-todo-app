@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Next.js로 TODO 앱 만들기
+1. 학습 목표 및 목차 설명  
+2. HTML, CSS, JS 란? (선택)  
+3. AI를 활용하기 위한 Cursor AI 세팅하기  
+4. 프로젝트 생성 및 구조에 대해 (app router)  
+5. 기본 TODO 앱 구조 만들기  
+6. Tailwindcss 소개 및 스타일링 하기  
+7. 네비게이션 바 만들기  
+8. Input과 Button. 입력 모달 만들기  
+9. 컴포넌트화 하기 (component)  
+10. 근데 왜 저장이 안될까? (useState) (선택)  
+11. supabase 이메일 회원가입 만들기 1  
+12. supabase 이메일 회원가입 만들기 2  
+13. supabase todos 테이블 만들기 (DB table)  
+14. supabase 회원별로 보이는 글 구분하기 (RLS 설정하기)  
+15. 데이터 쓰기  
+16. 읽기 (Data fetch)  
+17. 수정  
+18. 삭제  
+19. 네비게이션 바를 재활용 하고 싶으면? (layout.js)  
+20. 페이지 이동하기 (routing 기초, useRouter, Link)  
+21. supabase View로 통계 만들기 (DB view)  
+22. 미션 - TODO 통계 화면 만들기  
+23. TODO 통계화면 완성하기  
+24. 배포하기 (Github 와 Vercel)  
